@@ -1,0 +1,51 @@
+<nav class="navbar navbar-custom">
+    <div class="container-fluid">
+      <span class="navbar-brand" href="#">
+         <img src="../assets/image/AilineLogo.jfif" alt="" width="30" height="24" class="d-inline-block align-text-top">
+         FlightBookingApplication
+      </span>
+      <ul class="nav justify-content-end">
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li  *ngIf="!checklogin()" class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li  *ngIf="!checklogin()" class="nav-item">
+            <a class="nav-link " href="/register">Register</a>
+          </li>
+          <li  *ngIf="checklogin()&&checkAdminRole()" class="nav-item">
+            <div class="dropdown">
+              <button class="dropbtn">Admin
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a class="nav-link " href="/addAirline">AddAirline</a>
+                <a class="nav-link " href="/addflight">AddFlight</a>
+                <a class="nav-link " href="/addSchedule">ScheduleFlight</a>
+              </div>
+            </div>
+          </li>
+          
+          <li  *ngIf="checklogin()&&checkUserRole()" class="nav-item">
+            <div class="dropdown">
+              <button class="dropbtn">User
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a class="nav-link " href="/user-booking">UserBooking</a>
+                <a class="nav-link " href="/userhistory">View History</a>
+                <a class="nav-link " href="#">UserData</a>
+              </div>
+            </div>
+          </li>
+         <li *ngIf="checklogin()" class="nav-item">
+            <a class="nav-link " (click)="Logout()">Logout</a>
+          </li>
+          
+      </ul>
+    </div>
+  </nav>

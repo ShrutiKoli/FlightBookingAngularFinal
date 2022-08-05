@@ -1,0 +1,33 @@
+
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+              <!-- Tabs Titles -->
+          
+              <!-- Icon -->
+              <div class="fadeIn first">
+                <img src="../../assets/image/AilineLogo.jfif" id="icon" alt="User Icon" />
+              </div>
+          
+              <!-- Login Form -->
+              <form [formGroup]="register" (ngSubmit)="Onregister(register)">
+                <div class="input-field col s12">
+                  <input class="fadeIn second" type="text" placeholder="UserName" id="UserName" name=userName formControlName="UserName" />
+              <label data-error="Required field!"></label>
+              </div>
+              <div class="input-field col s12">
+              <input class="fadeIn third validate" id="pass" type="text" placeholder="Password" name=password formControlName="Password">
+              <label data-error="Required field!"></label>
+              </div>
+              <div class="input-field col s12">
+                <input class="fadeIn second" type="text"   placeholder="Email" id="email" name=email formControlName="Email">
+                <label></label>
+              </div>
+              <div class="input-field col s12">
+                <button [disabled]="register.invalid" class="fadeIn fourth  btn-submit" type="submit" >Register</button>
+            </div>
+              
+              </form>
+          
+          
+            </div>
+          </div>

@@ -1,0 +1,128 @@
+ <form [formGroup]="searchdataform" class="row g-3 align-items-center" >
+    <div class="col-auto">
+        <label for="inputPassword6" class="col-form-label">Select Option to view history</label>
+    </div>
+    <div class="col-auto">
+        <select type="email" formControlName="searchOption" class="form-select" aria-describedby="passwordHelpInline" form-select-font-size="500px">
+            <option >Email</option>
+            <option >PNR</option>
+        </select>   
+     </div>
+     <div class="col-auto">
+        <input type="text" formControlName="searchValue"class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="col-auto">
+        <button type="button" (click)="searchHistory(searchdataform.value)"class="btn btn-primary m-3">Search</button> 
+     </div>
+    </form>
+
+
+
+  <table class="table m-2" *ngIf="isSearched">
+    <thead>
+      <tr>
+        <th scope="col">AirlineName</th>
+        <th scope="col">FlightCode</th>
+        <th scope="col">PNR</th>
+        <th scope="col">Source</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Departure Time</th>
+        <th scope="col">Arrival Time</th>
+        <th scope="col">Total Cost</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr *ngFor="let data of userData">
+        <td>{{data.airlineName}}</td>
+        <td>{{data.flightCode}}</td>
+        <td>{{data.pnr}}</td>
+        <td>{{data.source}}</td>
+        <td>{{data.destination}}</td>
+        <td>{{data.from|date:'dd-MM-yyy HH:mm:SS a'}}</td>
+        <td>{{data.to|date:'dd-MM-yyy HH:mm:SS a'}}</td>
+        <td>{{data.airlinePrice|currency:"INR"}}</td>
+        <td>{{data.status==true?"Active":"Cancelled"}}</td>
+        <td>
+          <button type="button" (click)="bindTicketData(data)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button>
+          &nbsp;<button [disabled]="!data.status" (click)="cancekBooking(data)" class="btn btn-danger">Cancel</button>
+        </td>
+      </tr>
+  
+    
+    </tbody>
+  </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Flight Ticket</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="ticket" #ticket>
+          <table class="table m-2">
+            <thead>
+              <tr>
+                <th scope="col">PNR : {{ticketData.pnr}}</th>
+                <th scope="col">Status: {{ticketData.status==true?"Active":"Cancelled"}}</th>
+               </tr>
+               <tr>
+                <th scope="col">AirlineName: {{ticketData.airlineName}}</th>
+                <th scope="col">FlightCode: {{ticketData.flightCode}}</th>
+               </tr>
+               <tr>
+                <th scope="col">Source: {{ticketData.source}}</th>
+                <th scope="col">Destination: {{ticketData.destination}}</th>
+               </tr>
+               <tr>
+                <th scope="col">Departure Time : {{ticketData.fromDate|date:'dd-MM-yyy HH:mm:SS a'}}</th>
+                <th scope="col">Arrival Time: {{ticketData.toDate|date:'dd-MM-yyy HH:mm:SS a'}}</th>
+               </tr>
+               <tr>
+                <th scope="col">Booked Date : {{ticketData.bookedDate|date:'dd-MM-yyy'}}</th>
+                <th scope="col">Total Cost: {{ticketData.cost|currency:"INR"}}</th>
+               </tr>
+               <tr>
+                <th scope="col">Meal Option: {{ticketData.mealOption}}</th>
+                
+               </tr>
+            </thead>
+            <tbody>
+              <table class="table m-2">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Seat No</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of ticketData.userBookingDetails">
+                    <td>{{u.name}}</td>
+                    <td>{{u.age}}</td>
+                    <td>{{u.gender}}</td>
+                    <td>{{u.seatNumber}}</td>
+                </tr>
+              </tbody>
+            </table>
+          
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="downloadTicket()"class="btn btn-primary">Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

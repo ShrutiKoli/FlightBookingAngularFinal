@@ -1,0 +1,187 @@
+<div class="wrapper bg-white">
+  <form action="#">
+      <div class="form-group border-bottom d-flex align-items-center justify-content-between flex-wrap">
+          <label class="option my-sm-0 my-2">
+              <input type="radio" name="radio" checked>Round Trip
+              <span class="checkmark"></span>
+          </label>
+          <label class="option my-sm-0 my-2">
+              <input type="radio" name="radio">One Way
+              <span class="checkmark"></span>
+          </label>
+          <div class="d-flex align-items-center my-sm-0 my-2">
+              <a href="#" class="text-decoration-none">
+                  Multi-city/Stopovers <span class="fas fa-angle-right ps-2 text-primary"></span>
+              </a>
+          </div>
+      </div>
+      <div class="form-group d-sm-flex margin">
+          <div class="d-flex align-items-center flex-fill me-sm-1 my-sm-0 my-4 border-bottom position-relative">
+              <input #source type="text" required placeholder="From" class="form-control">
+              <div class="label" id="from"></div>
+              <span class="fas fa-dot-circle text-muted"></span>
+          </div>
+          <div class="d-flex align-items-center flex-fill ms-sm-1 my-sm-0 my-4 border-bottom position-relative">
+              <input  #destination type="text" required placeholder="To" class="form-control">
+              <div class="label" id="to"></div>
+              <span class="fas fa-map-marker text-muted"></span>
+          </div>
+      </div>
+      <div class="form-group d-sm-flex margin">
+          <div class="d-flex align-items-center flex-fill me-sm1 my-sm-0 border-bottom position-relative">
+              <input #deptdate type="date" required placeholder="Depart Date" class="form-control">
+              <div class="label" id="depart"></div>
+          </div>
+          <div class="d-flex align-items-center flex-fill ms-sm-1 my-sm-0 my-4 border-bottom position-relative">
+              <input  type="date" required placeholder="Return Date" class="form-control">
+              <div class="label" id="return"></div>
+          </div>
+      </div>
+      <div class="form-group border-bottom d-flex align-items-center position-relative">
+          <input type="text" required placeholder="Traveller(s)" class="form-control">
+          <div class="label" id="psngr"></div>
+          <span class="fas fa-users text-muted"></span>
+      </div>
+      <div class="form-group my-3">
+          <div #btnsearch class="btn btn-primary rounded-0 d-flex justify-content-center text-center p-3" (click)="SearchFlight(source.value,destination.value,deptdate.value)">Search Flights
+          </div>
+      </div>
+  </form>
+</div> 
+
+
+<div  #abc *ngIf="search">
+  <table class="table ">
+      <thead>
+        <tr>
+          <th scope="col">AirlineName</th>
+          <th scope="col">AirlineLogo</th>
+          <th scope="col">FlightCode</th>
+          <th scope="col">From</th>
+          <th scope="col">To</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+          
+        <tr *ngFor="let FilghtSearch of Searchdata" >
+       
+       
+          <td>{{FilghtSearch.airlineName}}</td>
+          <td>{{FilghtSearch.airlineLogo}}</td>
+          <td>{{FilghtSearch.flightCode}}</td>
+          <td>{{FilghtSearch.from|date:'dd-MM-yyy HH:mm:SS a'}}</td>
+          <td>{{FilghtSearch.to|date:'dd-MM-yyy HH:mm:SS a'}}</td>
+          <td>
+            <button type="button"(click)="binddata(FilghtSearch)" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Book</button>
+
+          </td>
+        </tr>
+    
+      <tr  *ngIf="!Searchdata">
+          <td colspan="5">Loading data......</td>
+      </tr>
+      </tbody>
+    </table>
+
+     <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Book Flight</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+            <form [formGroup]="bookform">
+              <div class="row">
+                <div class="column" style="border: 1px solid black;">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Name</label>
+                    <input type="text"  formControlName="userName"class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Email</label>
+                    <input type="text"  formControlName="email" class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Meal Option</label>
+                    <input type="text" formControlName="mealOption" class="form-control" id="exampleInputPassword1">
+                  </div>
+                 <div style="border: 1px solid skyblue;">
+                     <form [formGroup]="passengerform">
+                      <div class="row">
+                        <div class="column">
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Name </label>
+                        <input type="text"  formControlName="name" class="form-control" id="exampleInputPassword1">
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Age</label>
+                        <input type="text" formControlName="age" class="form-control" id="exampleInputPassword1">
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                      <div class="column">
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Gender</label>
+                        <input type="text"  formControlName="gender"class="form-control" id="exampleInputPassword1">
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Seat Number</label>
+                        <input type="text"  formControlName="seatNumber"class="form-control" id="exampleInputPassword1">
+                      </div>
+                    </div>
+                    </div>
+                      <button type="button" (click)="addpsg(passengerform.value)" class="btn btn-primary">Add</button>
+
+                     </form>
+                   </div>
+                  </div>
+                  <div class="column" style="border: 1px solid black;">
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">No Of Seats</label>
+                      <input type="text" formControlName="noOfSeats" [value]="seats" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Total Cost</label>
+                      <input type="text" formControlName="cost" [value]="cost" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3">
+                      <div class="row">
+                        <div class="column">
+                          <input type="text"  #discount formControlName="discount" placeholder="DiscountCode" class="form-control" id="exampleInputPassword1">
+
+                        </div>
+                        <div class="column">
+                          <button type="button" (click)="applyDiscount(discount.value)" class="btn btn-primary">Apply Discount</button>
+
+                        </div>
+                               {{isDiscountapplied===true?"Discount already applied":""}}
+                      </div>
+                    </div>
+           </div>
+                </div>
+                    </form>
+            
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="bookFlight(bookform.value)" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+
+ 

@@ -1,0 +1,18 @@
+
+.navbar-custom{
+    background-image: linear-gradient(-90deg,#d38312,#a83279);
+    outline: none!important;
+    border: none!important;
+    padding-right: 20px;
+  
+}
+.nav-link{
+    margin: 3px;
+    font: 16px;
+    color: #ffff;
+}
+
+.row{
+    padding: auto;
+    margin-right: 10px;
+}

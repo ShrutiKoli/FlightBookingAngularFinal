@@ -1,0 +1,75 @@
+
+    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Airline</button>
+
+<table class="table m-2">
+    <thead>
+      <tr>
+        <th scope="col">AirlineName</th>
+        <th scope="col">AirlineLogo</th>
+        <th scope="col">AirlineCode</th>
+        <th scope="col">About</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr *ngFor="let al of Airlinedata">
+        <td>{{al.airlineName}}</td>
+        <td>{{al.logo}}</td>
+        <td>{{al.airlineCode}}</td>
+        <td>{{al.about}}</td>
+        <td>{{al.isActive==true?"Active":"Blocked"}}</td>
+        <td>
+            <button class="btn btn-danger" [disabled]="!al.isActive" (click)="blockAirline(al.airlineName,al.airlineCode,false)">Block</button>
+            <button class="btn btn-success m-1" [disabled]="al.isActive" (click)="blockAirline(al.airlineName,al.airlineCode,true)">UnBlock</button>
+          </td>
+      </tr>
+  
+    
+    </tbody>
+  </table>
+
+ 
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Airline</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="addairlineform">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Airline Name</label>
+                  <input type="email" formControlName="airlineName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Airline Code</label>
+                  <input type="text" formControlName="airlineCode"class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Airlinelogo</label>
+                    <input type="file" formControlName="airlineLogo" class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">About</label>
+                    <input type="text" formControlName="about" class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Address</label>
+                    <input type="text" formControlName="address" class="form-control" id="exampleInputPassword1">
+                  </div>
+                </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="addAirline(addairlineform.value)" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

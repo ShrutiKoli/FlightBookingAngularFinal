@@ -1,0 +1,25 @@
+
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+              <!-- Tabs Titles -->
+          
+              <!-- Icon -->
+              <div class="fadeIn first">
+                <img src="../../assets/image/AilineLogo.jfif" id="icon" alt="User Icon" />
+              </div>
+          
+              <!-- Login Form -->
+              <form [formGroup]="login" (ngSubmit)="Onlogin(login)">
+                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" formControlName="UserName">
+                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="Password">
+                <button [disabled]="login.invalid" class="fadeIn fourth  btn-submit" type="submit" >Login</button>
+              </form>
+          
+              <!-- Remind Passowrd -->
+              <div id="formFooter">
+                <a class="underlineHover" href="/register">Not Registered?Click here</a>
+              </div>
+          
+            </div>
+          </div>
+   
